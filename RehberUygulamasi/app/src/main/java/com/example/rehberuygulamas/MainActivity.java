@@ -28,12 +28,23 @@ public class MainActivity extends AppCompatActivity {
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Person newPerson = new Person("Ömer", "211229013");
+                Intent intent = new Intent(MainActivity.this, AddPersonActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        /*
+        binding.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Person newPerson = new Person("Ömer Sahin", "211229013", "omersahin@gmail.com");
                 databaseHelper.addPerson(newPerson);
                 System.out.println("Yeni kullanıcı eklendi!");
                 Log.d("MainActivity", "YENİ KULLANICI EKLENDİ !!!");
             }
         });
+        */
 
 
         binding.dummyButton.setOnClickListener(new View.OnClickListener() {
@@ -41,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ArrayList<Person> personList = new ArrayList<>();
 
-                personList.add(new Person("Ömer", "211229013"));
-                personList.add(new Person("Ahmet", "5331234567"));
-                personList.add(new Person("Ayşe", "5559876543"));
-                personList.add(new Person("Mehmet", "2129876543"));
-                personList.add(new Person("Fatma", "5051234567"));
+                personList.add(new Person("Ömer Sahin", "211229013", "omersahin@gmail.com"));
+                personList.add(new Person("Ahmet Yılmaz", "5331234567", "ahmet@example.com"));
+                personList.add(new Person("Ayşe Demir", "5559876543", "ayse@example.com"));
+                personList.add(new Person("Mehmet Kaya", "2129876543", "mehmet@example.com"));
+                personList.add(new Person("Fatma Şahin", "5051234567", "fatma@example.com"));
 
                 for (Person person : personList) {
                     databaseHelper.addPerson(person);
@@ -76,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra("name", personList.get(position).getName());
-                intent.putExtra("phone", personList.get(position).getPhone());
+                Person person = databaseHelper.getPerson(personList.get(position).getId());
+                intent.putExtra("person", person);
                 startActivity(intent);
             }
         });

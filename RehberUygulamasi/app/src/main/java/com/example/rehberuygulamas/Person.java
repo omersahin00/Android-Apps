@@ -1,22 +1,27 @@
 package com.example.rehberuygulamas;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private int id;
     private String name;
     private String phone;
+    private String email; // Yeni eklenen email sütunu
 
     public Person() {
     }
 
-    public Person(String name, String telefon) {
+    public Person(String name, String phone, String email) {
         this.name = name;
-        this.phone = telefon;
+        this.phone = phone;
+        this.email = email;
     }
 
-    public Person(int id, String name, String telefon) {
+    public Person(int id, String name, String telefon, String email) {
         this.id = id;
         this.name = name;
         this.phone = telefon;
+        this.email = email;
     }
 
     public int getId() {
@@ -43,12 +48,21 @@ public class Person {
         this.phone = telefon;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", telefon='" + phone + '\'' +
+                ", email='" + email + '\'' + // toString metoduna email eklenmesi
                 '}';
     }
 }

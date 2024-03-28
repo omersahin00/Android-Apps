@@ -15,26 +15,42 @@ import com.example.rehberuygulamas.databinding.ActivityDetailsBinding;
 
 public class DetailsActivity extends AppCompatActivity {
     private ActivityDetailsBinding binding;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        databaseHelper = new DatabaseHelper(this);
         setContentView(view);
 
 
         Intent intent = getIntent();
-        String name = (String) intent.getSerializableExtra("name");
-        String phone = (String) intent.getSerializableExtra("phone");
-        binding.textView.setText(name + "\n" + phone);
+        Person person = (Person) intent.getSerializableExtra("person");
 
-        /*
-        Intent intent = getIntent();
-        String item = (String) intent.getSerializableExtra("item");
-        binding.textView.setText(item);
-        */
+        binding.nameText.setText(person.getName());
+        binding.phoneText.setText(person.getPhone());
+        binding.emailText.setText(person.getEmail());
 
+
+        binding.updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = binding.nameText.getText().toString();
+                String newPhone = binding.phoneText.getText().toString();
+                String newEmail = binding.emailText.getText().toString();
+
+                person.setName(newName);
+                person.setPhone(newPhone);
+                person.setEmail(newEmail);
+
+                databaseHelper.updatePerson(person);
+
+                Intent mainIntent = new Intent(DetailsActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
     }
 }
 
