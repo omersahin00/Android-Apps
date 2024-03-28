@@ -96,34 +96,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.591" />
 
+
     <Button
         android:id="@+id/button4"
-        android:layout_width="115dp"
-        android:layout_height="68dp"
+        android:layout_width="141dp"
+        android:layout_height="69dp"
         android:backgroundTint="#2196F3"
         android:text="Mesaj"
+        android:textSize="16sp"
         app:icon="@drawable/message_icon"
+        app:iconSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.315" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="103dp"
+        android:layout_width="121dp"
         android:layout_height="67dp"
         android:backgroundTint="#3F51B5"
         android:text="Ara"
+        android:textSize="16sp"
         app:icon="@drawable/phone_icon"
+        app:iconSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.292"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.314" />
-
 
     <Button
         android:id="@+id/updateButton"
@@ -138,6 +142,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="53dp"
+        android:layout_height="47dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/close_x" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,13 @@ public class AddPersonActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         setContentView(view);
 
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

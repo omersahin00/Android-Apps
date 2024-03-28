@@ -34,6 +34,14 @@ public class DetailsActivity extends AppCompatActivity {
         binding.emailText.setText(person.getEmail());
 
 
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         binding.updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
