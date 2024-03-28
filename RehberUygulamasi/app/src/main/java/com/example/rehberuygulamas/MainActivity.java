@@ -33,41 +33,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        binding.dummyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<Person> personList = new ArrayList<>();
-
-                personList.add(new Person("Ömer Sahin", "211229013", "omersahin@gmail.com"));
-                personList.add(new Person("Ahmet Yılmaz", "5331234567", "ahmet@example.com"));
-                personList.add(new Person("Ayşe Demir", "5559876543", "ayse@example.com"));
-                personList.add(new Person("Mehmet Kaya", "2129876543", "mehmet@example.com"));
-                personList.add(new Person("Fatma Şahin", "5051234567", "fatma@example.com"));
-
-                for (Person person : personList) {
-                    databaseHelper.addPerson(person);
-                }
-            }
-        });
-
-        binding.resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseHelper.resetTable();
-                System.out.println("Tüm veriler silindi!");
-                Log.d("MainActivity", "TÜM VERİLER SİLİNDİ !!!");
-            }
-        });
-
-
-
         ArrayList<Person> personList = databaseHelper.getAllPersons();
 
         if (personList == null || personList.size() == 0){
-            Person person = new Person("Ömer Şahin", "5554789000", "omersahin@gmail.com");
-            databaseHelper.addPerson(person);
-            personList.add(person);
+            personList.add(new Person("Ömer Sahin", "211229013", "omersahin@gmail.com"));
+            personList.add(new Person("Ahmet Yılmaz", "5331234567", "ahmet@example.com"));
+            personList.add(new Person("Ayşe Demir", "5559876543", "ayse@example.com"));
+            personList.add(new Person("Mehmet Kaya", "2129876543", "mehmet@example.com"));
+            personList.add(new Person("Fatma Şahin", "5051234567", "fatma@example.com"));
+
+            for (Person person : personList) {
+                databaseHelper.addPerson(person);
+            }
         }
 
         ArrayAdapter personArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,

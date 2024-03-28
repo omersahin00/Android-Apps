@@ -89,7 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     // Kişiyi güncelleme:
     public int updatePerson(Person person) {
         SQLiteDatabase db = this.getWritableDatabase();

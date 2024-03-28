@@ -25,24 +25,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0">
 
-        <Button
-            android:id="@+id/dummyButton"
-            android:layout_width="14dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Dummy Data" />
-
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/resetButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="Sıfırla" />
 
         <Space
             android:layout_width="wrap_content"
