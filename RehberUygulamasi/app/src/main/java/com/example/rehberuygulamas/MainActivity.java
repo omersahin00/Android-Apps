@@ -34,19 +34,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*
-        binding.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Person newPerson = new Person("Ömer Sahin", "211229013", "omersahin@gmail.com");
-                databaseHelper.addPerson(newPerson);
-                System.out.println("Yeni kullanıcı eklendi!");
-                Log.d("MainActivity", "YENİ KULLANICI EKLENDİ !!!");
-            }
-        });
-        */
-
-
         binding.dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<Person> personList = databaseHelper.getAllPersons();
+
+        if (personList == null || personList.size() == 0){
+            Person person = new Person("Ömer Şahin", "5554789000", "omersahin@gmail.com");
+            databaseHelper.addPerson(person);
+            personList.add(person);
+        }
 
         ArrayAdapter personArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
                 personList.stream().map(person -> person.getName()).collect(Collectors.toList()));

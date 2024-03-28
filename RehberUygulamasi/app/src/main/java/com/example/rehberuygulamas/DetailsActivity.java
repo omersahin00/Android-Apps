@@ -59,6 +59,18 @@ public class DetailsActivity extends AppCompatActivity {
                 startActivity(mainIntent);
             }
         });
+
+
+
+        binding.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseHelper.deletePerson(person);
+
+                Intent mainIntent = new Intent(DetailsActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
     }
 }
 

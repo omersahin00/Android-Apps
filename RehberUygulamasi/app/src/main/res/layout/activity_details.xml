@@ -131,17 +131,19 @@
 
     <Button
         android:id="@+id/updateButton"
-        android:layout_width="139dp"
-        android:layout_height="67dp"
+        android:layout_width="133dp"
+        android:layout_height="63dp"
         android:layout_gravity="end"
-        android:text="Değişiklikleri Uygula"
+        android:backgroundTint="#005F04"
+        android:text="Uygula"
         android:textSize="15sp"
+        app:icon="@drawable/save_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintHorizontal_bias="0.942"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <ImageButton
         android:id="@+id/closeButton"
@@ -156,6 +158,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/close_x" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="104dp"
+        android:layout_height="63dp"
+        android:backgroundTint="#DE0000"
+        android:text="Sil"
+        app:icon="@drawable/trash_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
