@@ -2,13 +2,14 @@ package com.example.rehberuygulamas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.rehberuygulamas.databinding.ActivityMainBinding;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 databaseHelper.addPerson(person);
             }
         }
+
+        Comparator<Person> nameComparator = Comparator.comparing(Person::getName, String.CASE_INSENSITIVE_ORDER);
+        personList.sort(nameComparator);
 
         ArrayAdapter personArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
                 personList.stream().map(person -> person.getName()).collect(Collectors.toList()));

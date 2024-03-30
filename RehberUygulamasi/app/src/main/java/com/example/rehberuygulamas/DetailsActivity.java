@@ -3,6 +3,7 @@ package com.example.rehberuygulamas;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                 Intent mainIntent = new Intent(DetailsActivity.this, MainActivity.class);
                 startActivity(mainIntent);
+
+                showNotification("Kişi güncellendi");
             }
         });
 
@@ -69,8 +72,14 @@ public class DetailsActivity extends AppCompatActivity {
 
                 Intent mainIntent = new Intent(DetailsActivity.this, MainActivity.class);
                 startActivity(mainIntent);
+
+                showNotification("Kişi silindi");
             }
         });
     }
-}
 
+
+    private void showNotification(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+}

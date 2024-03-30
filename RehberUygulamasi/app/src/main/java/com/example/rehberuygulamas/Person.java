@@ -6,7 +6,7 @@ public class Person implements Serializable {
     private int id;
     private String name;
     private String phone;
-    private String email; // Yeni eklenen email sütunu
+    private String email;
 
     public Person() {
     }
@@ -62,7 +62,7 @@ public class Person implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", telefon='" + phone + '\'' +
-                ", email='" + email + '\'' + // toString metoduna email eklenmesi
+                ", email='" + email + '\'' +
                 '}';
     }
 }

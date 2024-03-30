@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +48,13 @@ public class AddPersonActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AddPersonActivity.this, MainActivity.class);
                 startActivity(intent);
+
+                showNotification(name + " eklendi");
             }
         });
+    }
+
+    private void showNotification(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

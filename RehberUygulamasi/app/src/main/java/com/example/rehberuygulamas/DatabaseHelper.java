@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_PHONE = "phone";
-    private static final String COLUMN_EMAIL = "email"; // Yeni eklenen email sütunu
+    private static final String COLUMN_EMAIL = "email";
 
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_NAME + " TEXT,"
                 + COLUMN_PHONE + " TEXT,"
-                + COLUMN_EMAIL + " TEXT" // Email sütunu eklendi
+                + COLUMN_EMAIL + " TEXT"
                 + ")";
         db.execSQL(createTableQuery);
     }
@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, person.getName());
         values.put(COLUMN_PHONE, person.getPhone());
-        values.put(COLUMN_EMAIL, person.getEmail()); // Email bilgisi eklendi
+        values.put(COLUMN_EMAIL, person.getEmail());
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
@@ -80,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 person.setId(cursor.getInt(0));
                 person.setName(cursor.getString(1));
                 person.setPhone(cursor.getString(2));
-                person.setEmail(cursor.getString(3)); // Email bilgisi eklendi
+                person.setEmail(cursor.getString(3));
                 personList.add(person);
             } while (cursor.moveToNext());
         }
