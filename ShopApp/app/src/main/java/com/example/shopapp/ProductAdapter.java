@@ -16,7 +16,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private List<Product> mProductList;
     private OnItemClickListener mListener;
 
-    // Tıklama olaylarını dinlemek için arayüz tanımı
     public interface OnItemClickListener {
         void onItemClick(int position);
     }

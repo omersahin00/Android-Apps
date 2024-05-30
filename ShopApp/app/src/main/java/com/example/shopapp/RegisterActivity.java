@@ -9,7 +9,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.shopapp.databinding.ActivityMainBinding;
 import com.example.shopapp.databinding.ActivityRegisterBinding;
 import com.google.firebase.FirebaseApp;
 
@@ -33,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         FirebaseApp.initializeApp(this);
-        FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper(Account.class);
+        AccountFirebaseDatabaseHelper accountFirebaseDatabaseHelper = new AccountFirebaseDatabaseHelper(Account.class);
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String userName = binding.userNameText.getText().toString();
                 String password = binding.passwordText.getText().toString();
 
-                firebaseDatabaseHelper.getOneAccounts(new FirebaseDatabaseHelper.DataListener<Account>() {
+                accountFirebaseDatabaseHelper.getOneAccounts(new AccountFirebaseDatabaseHelper.DataListener<Account>() {
                     @Override
                     public void onDataReceived(Account data) {
                         if (data != null) {
@@ -49,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         else {
                             Account account = new Account(userName, password, 10000);
-                            firebaseDatabaseHelper.addData(account);
+                            accountFirebaseDatabaseHelper.addData(account);
                             binding.errorText.setText("Kayıt olma başarılı.");
                         }
                     }

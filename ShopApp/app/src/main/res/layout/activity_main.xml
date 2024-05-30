@@ -29,12 +29,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="391dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="699dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="21dp"
+        android:layout_marginEnd="1dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegister"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegister">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -54,7 +58,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat1" />
+                    app:srcCompat="@drawable/brand_adidas" />
 
                 <ImageButton
                     android:id="@+id/imageButton8"
@@ -63,7 +67,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat2" />
+                    app:srcCompat="@drawable/brand_zara" />
 
                 <ImageButton
                     android:id="@+id/imageButton9"
@@ -72,7 +76,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat3" />
+                    app:srcCompat="@drawable/brand_lv" />
 
                 <ImageButton
                     android:id="@+id/imageButton10"
@@ -81,7 +85,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat4" />
+                    app:srcCompat="@drawable/brand_gucci" />
 
                 <ImageButton
                     android:id="@+id/imageButton11"
@@ -90,7 +94,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat5" />
+                    app:srcCompat="@drawable/brand_puma" />
 
                 <ImageButton
                     android:id="@+id/imageButton12"
@@ -99,7 +103,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat6" />
+                    app:srcCompat="@drawable/brand_nike" />
 
                 <ImageButton
                     android:id="@+id/imageButton13"
@@ -108,7 +112,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/cat7" />
+                    app:srcCompat="@drawable/brand_chanel" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -116,9 +120,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/mockDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="MockData"
+        app:layout_constraintEnd_toStartOf="@+id/buttonRegister"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonLogin"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

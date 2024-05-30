@@ -42,25 +42,42 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FirebaseApp.initializeApp(this);
-        // FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper(Account.class);
 
-        // Mock Data:
-        /* Account account = new Account("Omer", "123", 10000);
-        firebaseDatabaseHelper.addData(account); */
+        // Silme kodu testi:
+        /* productFirebaseDatabaseHelper.addData(new Product("Test", 100, "Nike", 123));
+        productFirebaseDatabaseHelper.removeProduct("Test"); */
+
+
+        binding.mockDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MockDataController mockDataController = new MockDataController(MainActivity.this);
+                mockDataController.AddMockData();
+            }
+        });
+
+        List<Brand> brandList = new ArrayList<Brand>();
+        brandList.add(new Brand("Brand 1", R.drawable.brand_adidas));
+        brandList.add(new Brand("Brand 2", R.drawable.brand_zara));
+        brandList.add(new Brand("Brand 3", R.drawable.brand_lv));
+        brandList.add(new Brand("Brand 4", R.drawable.brand_gucci));
+        brandList.add(new Brand("Brand 5", R.drawable.brand_puma));
+        brandList.add(new Brand("Brand 6", R.drawable.brand_nike));
+        brandList.add(new Brand("Brand 7", R.drawable.brand_chanel));
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         List<Product> productList = new ArrayList<Product>();
 
         // Log.d(TAG, String.valueOf(R.drawable.item_1)); // çıktı: 2131165371
 
-        productList.add(new Product("Ürün 1", 100, 2131165371)); // sayı üstten geliyor. elle yazdım.
-        productList.add(new Product("Ürün 2", 200, R.drawable.item_2));
-        productList.add(new Product("Ürün 3", 200, R.drawable.item_3));
-        productList.add(new Product("Ürün 4", 200, R.drawable.item_4));
-        productList.add(new Product("Ürün 5", 200, R.drawable.item_4_1));
-        productList.add(new Product("Ürün 6", 200, R.drawable.item_4_2));
-        productList.add(new Product("Ürün 7", 200, R.drawable.item_4_3));
-        productList.add(new Product("Ürün 8", 200, R.drawable.item_2));
+        productList.add(new Product("Ürün 1", 100, "Nike", R.drawable.item_1)); // sayı üstten geliyor. elle yazdım.
+        productList.add(new Product("Ürün 2", 200, "Adidas", R.drawable.item_1));
+        productList.add(new Product("Ürün 3", 200, "Chanel", R.drawable.item_2));
+        productList.add(new Product("Ürün 4", 200, "Gucci", R.drawable.item_3));
+        productList.add(new Product("Ürün 5", 200, "LV", R.drawable.item_4));
+        productList.add(new Product("Ürün 6", 200, "Puma", R.drawable.item_4_1));
+        productList.add(new Product("Ürün 7", 200, "Zara", R.drawable.item_4_2));
+        productList.add(new Product("Ürün 8", 200, "Zara", R.drawable.item_4_3));
 
 
         ProductAdapter adapter = new ProductAdapter(productList, new ProductAdapter.OnItemClickListener() {

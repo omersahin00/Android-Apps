@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.shopapp.databinding.ActivityLoginBinding;
-import com.example.shopapp.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         FirebaseApp.initializeApp(this);
-        FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper(Account.class);
+        AccountFirebaseDatabaseHelper accountFirebaseDatabaseHelper = new AccountFirebaseDatabaseHelper(Account.class);
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = binding.userNameText.getText().toString();
                 String password = binding.passwordText.getText().toString();
 
-                firebaseDatabaseHelper.getOneAccounts(new FirebaseDatabaseHelper.DataListener<Account>() {
+                accountFirebaseDatabaseHelper.getOneAccounts(new AccountFirebaseDatabaseHelper.DataListener<Account>() {
                     @Override
                     public void onDataReceived(Account data) {
                         if (data != null) {
