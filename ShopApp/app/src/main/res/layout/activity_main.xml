@@ -40,82 +40,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRegister">
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/horizontalRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="88dp"
-            android:scrollbars="none">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton7"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_adidas" />
-
-                <ImageButton
-                    android:id="@+id/imageButton8"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_zara" />
-
-                <ImageButton
-                    android:id="@+id/imageButton9"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_lv" />
-
-                <ImageButton
-                    android:id="@+id/imageButton10"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_gucci" />
-
-                <ImageButton
-                    android:id="@+id/imageButton11"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_puma" />
-
-                <ImageButton
-                    android:id="@+id/imageButton12"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_nike" />
-
-                <ImageButton
-                    android:id="@+id/imageButton13"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/brand_chanel" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:orientation="horizontal"
+            android:scrollbars="none" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

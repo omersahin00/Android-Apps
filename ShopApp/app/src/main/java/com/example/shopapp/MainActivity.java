@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopapp.databinding.ActivityMainBinding;
@@ -27,15 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     List<Brand> brandList;
     List<Product> productList;
-    ProductAdapter adapter;
+    ProductAdapter productAdapter;
+    BrandAdapter brandAdapter;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
-        SetProductList();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
+        SetButtonsListener();
+
+        SetBrandList();
+        SetBrandLayout();
+
+        SetProductList();
+        SetProductLayout();
+    }
+
+
+    public void SetButtonsListener() {
         binding.mockDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,18 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 SetProductList();
             }
         });
-
-        adapter = new ProductAdapter(productList, new ProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // Burada ürünlerin listedeki pozisyonları elde edilebiliyor.
-                Toast.makeText(MainActivity.this, productList.get(position).getName() + " " + productList.get(position).getIndex(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        binding.recyclerView.setAdapter(adapter);
-
-
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         binding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,23 +87,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void SetProductList() {
-        FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
-        FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
-
-        brandList = new ArrayList<>();
-        productList = new ArrayList<>();
-
-        brandFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<Brand>() {
+    public void SetBrandLayout() {
+        brandAdapter = new BrandAdapter(brandList, new BrandAdapter.OnItemClickListener() {
             @Override
-            public void onDataReceived(Brand data) {
-                brandList.add(data);
-            }
-            @Override
-            public void onError(Exception e) {
-                Log.e(TAG, "onError: e", e);
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "Brand " + position, Toast.LENGTH_SHORT).show();
             }
         });
+        binding.horizontalRecyclerView.setAdapter(brandAdapter);
+        binding.horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+
+    public void SetProductLayout() {
+        productAdapter = new ProductAdapter(productList, new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Burada ürünlerin listedeki pozisyonları elde edilebiliyor.
+                Toast.makeText(MainActivity.this, productList.get(position).getName() + " " + productList.get(position).getIndex(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.recyclerView.setAdapter(productAdapter);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+    }
+
+
+    public void SetProductList() {
+        FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
+        productList = new ArrayList<>();
 
         productFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<Product>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -112,8 +122,27 @@ public class MainActivity extends AppCompatActivity {
             public void onDataReceived(Product data) {
                 Product product = new Product(data.getIndex(), data.getName(), data.getPrice(), data.getBrandName(), data.getImageResource());
                 productList.add(product);
-                adapter.notifyDataSetChanged(); // Yeni veri geldikçe adaptör güncelleniyor.
+                productAdapter.notifyDataSetChanged(); // Yeni veri geldikçe adaptör güncelleniyor.
                 Log.d(TAG, "data: " + product.toString());
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: e", e);
+            }
+        });
+    }
+
+
+    public void SetBrandList() {
+        FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
+        brandList = new ArrayList<>();
+
+        brandFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<Brand>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataReceived(Brand data) {
+                brandList.add(data);
+                brandAdapter.notifyDataSetChanged(); // Yeni veri geldikçe adaptör güncelleniyor.
             }
             @Override
             public void onError(Exception e) {
