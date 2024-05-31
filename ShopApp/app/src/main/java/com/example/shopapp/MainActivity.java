@@ -16,7 +16,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopapp.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 MockDataController mockDataController = new MockDataController(MainActivity.this);
                 mockDataController.AddMockData();
                 SetProductList();
+                SetBrandList();
             }
         });
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         brandAdapter = new BrandAdapter(brandList, new BrandAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(MainActivity.this, "Brand " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Brand " + brandList.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
         binding.horizontalRecyclerView.setAdapter(brandAdapter);
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: e", e);
             }
         });
+        SetProductLayout();
     }
 
 
@@ -149,5 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: e", e);
             }
         });
+        SetBrandLayout();
     }
 }
