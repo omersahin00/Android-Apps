@@ -1,5 +1,6 @@
 package com.example.shopapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -45,7 +46,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataReceived(Account data) {
                         if (data != null) {
                             if (data.getPassword().equals(password)) {
+                                FileHelper.writeToFile(LoginActivity.this, "isAuth", "true");
                                 binding.errorText.setText("Giriş yapıldı.");
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 binding.errorText.setText("Şifre hatalı.");

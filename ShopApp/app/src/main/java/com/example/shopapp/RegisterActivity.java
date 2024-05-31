@@ -14,6 +14,7 @@ import com.google.firebase.FirebaseApp;
 
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
+    private boolean isCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +38,33 @@ public class RegisterActivity extends AppCompatActivity {
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = binding.userNameText.getText().toString();
-                String password = binding.passwordText.getText().toString();
+                if (!isCreated) {
+                    String userName = binding.userNameText.getText().toString();
+                    String password = binding.passwordText.getText().toString();
 
-                accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
-                    @Override
-                    public void onDataReceived(Account data) {
-                        if (data != null) {
-                            binding.errorText.setText("Böyle bir kullanıcı mevcut.");
+                    accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
+                        @Override
+                        public void onDataReceived(Account data) {
+                            if (data != null) {
+                                binding.errorText.setText("Böyle bir kullanıcı mevcut.");
+                            }
+                            else {
+                                Account account = new Account(userName, password, 10000);
+                                accountFirebaseDatabaseHelper.addData(account);
+                                binding.errorText.setText("Kayıt olma başarılı.");
+                                binding.registerButton.setText("Ana Sayfaya Dön");
+                                isCreated = true;
+                            }
                         }
-                        else {
-                            Account account = new Account(userName, password, 10000);
-                            accountFirebaseDatabaseHelper.addData(account);
-                            binding.errorText.setText("Kayıt olma başarılı.");
+                        @Override
+                        public void onError(Exception e) {
+                            binding.errorText.setText("Bir hata oluştu.");
                         }
-                    }
-                    @Override
-                    public void onError(Exception e) {
-                        binding.errorText.setText("Bir hata oluştu.");
-                    }
-                }, userName, "name");
+                    }, userName, "name");
+                }
+                else {
+                    finish();
+                }
             }
         });
 

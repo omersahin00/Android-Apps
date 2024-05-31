@@ -47,8 +47,8 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="108dp"
-        android:layout_height="61dp"
+        android:layout_width="131dp"
+        android:layout_height="76dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

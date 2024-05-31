@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.shopapp.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
+        SetButtons();
         SetButtonsListener();
 
         SetBrandList();
@@ -57,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
         SetProductLayout();
     }
 
+    public void SetButtons() {
+        String isAuth = FileHelper.readFromFile(MainActivity.this, "isAuth");
+        Log.d(TAG, "FİLE: " + isAuth);
+        if (isAuth.contains("true")) {
+            binding.buttonLogin.setVisibility(View.INVISIBLE);
+            binding.mockDataButton.setVisibility(View.INVISIBLE);
+            binding.buttonRegister.setVisibility(View.INVISIBLE);
+        }
+        else {
+            binding.buttonCart.setVisibility(View.INVISIBLE);
+            binding.buttonLiked.setVisibility(View.INVISIBLE);
+            binding.buttonProfile.setVisibility(View.INVISIBLE);
+            binding.buttonLogout.setVisibility(View.INVISIBLE);
+        }
+    }
 
     public void SetButtonsListener() {
         binding.mockDataButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +100,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (FileHelper.readFromFile(MainActivity.this, "isAuth").contains("true")) {
+                    FileHelper.deleteFile(MainActivity.this, "isAuth");
+                    FileHelper.writeToFile(MainActivity.this, "isAuth", "false");
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
