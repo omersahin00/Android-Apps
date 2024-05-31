@@ -1,6 +1,7 @@
 package com.example.shopapp;
 
 public class Product {
+    private int index;
     private String name;
     private int price;
     private String brandName;
@@ -10,11 +11,19 @@ public class Product {
 
     }
 
-    public Product(String name, int price, String brandName, int imageResource) {
+    public Product(int index, String name, int price, String brandName, int imageResource) {
+        this.index = index;
         this.name = name;
         this.price = price;
         this.brandName = brandName;
         this.imageResource = imageResource;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    public int getIndex() {
+        return index;
     }
 
     public void setName(String name) {
@@ -47,5 +56,15 @@ public class Product {
 
     public int getImageResource() {
         return imageResource;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", brandName='" + brandName + '\'' +
+                ", imageResource=" + imageResource +
+                '}';
     }
 }

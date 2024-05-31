@@ -11,10 +11,20 @@ public class MockDataController {
         this.activity = activity;
     }
 
+    public void RemoveMockData() {
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+        FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
+        FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
+        accountFirebaseDatabaseHelper.removeAllData();
+        brandFirebaseDatabaseHelper.removeAllData();
+        productFirebaseDatabaseHelper.removeAllData();
+    }
     public void AddMockData() {
-        AccountFirebaseDatabaseHelper accountFirebaseDatabaseHelper = new AccountFirebaseDatabaseHelper(Account.class);
-        BrandFirebaseDatabaseHelper brandFirebaseDatabaseHelper = new BrandFirebaseDatabaseHelper(Brand.class);
-        ProductFirebaseDatabaseHelper productFirebaseDatabaseHelper = new ProductFirebaseDatabaseHelper(Product.class);
+        RemoveMockData();
+
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+        FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
+        FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
 
         accountFirebaseDatabaseHelper.addData(new Account("admin", "123", 0));
         accountFirebaseDatabaseHelper.addData(new Account("omer", "123", 10000));
@@ -28,14 +38,14 @@ public class MockDataController {
         brandFirebaseDatabaseHelper.addData(new Brand("Channel", R.drawable.brand_chanel));
 
 
-        productFirebaseDatabaseHelper.addData(new Product("Tişört", 400, "LV", R.drawable.item_1));
-        productFirebaseDatabaseHelper.addData(new Product("Ceket", 800, "Channel", R.drawable.item_2));
-        productFirebaseDatabaseHelper.addData(new Product("Çanta", 1000, "Zara", R.drawable.item_3));
-        productFirebaseDatabaseHelper.addData(new Product("Gömlek", 500, "Adidas", R.drawable.item_4));
-        productFirebaseDatabaseHelper.addData(new Product("Gömlek", 600, "LV", R.drawable.item_4_1));
-        productFirebaseDatabaseHelper.addData(new Product("Tişört", 700, "LV", R.drawable.item_4_2));
-        productFirebaseDatabaseHelper.addData(new Product("Gömlek", 400, "LV", R.drawable.item_4_3));
-        productFirebaseDatabaseHelper.addData(new Product("Tişört", 550, "LV", R.drawable.item_2));
+        productFirebaseDatabaseHelper.addData(new Product(1, "Tişört", 400, "LV", R.drawable.item_1));
+        productFirebaseDatabaseHelper.addData(new Product(2, "Ceket", 800, "Channel", R.drawable.item_2));
+        productFirebaseDatabaseHelper.addData(new Product(3, "Çanta", 1000, "Zara", R.drawable.item_3));
+        productFirebaseDatabaseHelper.addData(new Product(4, "Gömlek", 500, "Adidas", R.drawable.item_4));
+        productFirebaseDatabaseHelper.addData(new Product(5, "Gömlek", 600, "LV", R.drawable.item_4_1));
+        productFirebaseDatabaseHelper.addData(new Product(6, "Tişört", 700, "LV", R.drawable.item_4_2));
+        productFirebaseDatabaseHelper.addData(new Product(7, "Gömlek", 400, "LV", R.drawable.item_4_3));
+        productFirebaseDatabaseHelper.addData(new Product(8, "Tişört", 550, "LV", R.drawable.item_2));
 
         Toast.makeText(activity, "Tüm Sahte Veriler Basıldı.", Toast.LENGTH_SHORT).show();
     }

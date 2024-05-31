@@ -14,26 +14,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProductFirebaseDatabaseHelper {
+public class FirebaseDatabaseHelper<T> {
     private DatabaseReference mDatabase;
-    private Object object;
+    private Class<T> type;
 
-    public ProductFirebaseDatabaseHelper(Object object) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("products");
-        this.object = object;
+    public FirebaseDatabaseHelper(Class<T> type, String referance) {
+        mDatabase = FirebaseDatabase.getInstance().getReference(referance);
+        this.type = type;
     }
 
-    public void addData(Object data) {
+    public void removeAllData() {
+        mDatabase.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, "Tüm veriler başarıyla silindi.");
+            } else {
+                Log.e(TAG, "Veriler silinirken hata oluştu.", task.getException());
+            }
+        });
+    }
+
+    public void addData(T data) {
         mDatabase.push().setValue(data);
     }
 
-    public void getAllProducts(final ProductFirebaseDatabaseHelper.DataListener<Product> listener) {
+    public void getAllData(final DataListener<T> listener) {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Product product = snapshot.getValue(Product.class);
-                    listener.onDataReceived(product);
+                    T item = snapshot.getValue(type);
+                    listener.onDataReceived(item);
                 }
             }
 
@@ -44,14 +54,14 @@ public class ProductFirebaseDatabaseHelper {
         });
     }
 
-    public void getOneProducts(final ProductFirebaseDatabaseHelper.DataListener<Product> listener, String userName) {
-        mDatabase.orderByChild("name").equalTo(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getOneData(final DataListener<T> listener, String name, String parameter) {
+        mDatabase.orderByChild(parameter).equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Product product = snapshot.getValue(Product.class);
-                        listener.onDataReceived(product);
+                        T item = snapshot.getValue(type);
+                        listener.onDataReceived(item);
                         return;
                     }
                 } else {
@@ -66,8 +76,8 @@ public class ProductFirebaseDatabaseHelper {
         });
     }
 
-    public void removeProduct(String productName) {
-        mDatabase.orderByChild("name").equalTo(productName).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void removeData(String name, String parameter) {
+        mDatabase.orderByChild(parameter).equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -76,24 +86,24 @@ public class ProductFirebaseDatabaseHelper {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "Ürün başarıyla silindi.");
+                                        Log.d(TAG, "Hesap başarıyla silindi.");
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Ürün silinirken bir hata oluştu.", e);
+                                        Log.w(TAG, "Hesap silinirken bir hata oluştu.", e);
                                     }
                                 });
                     }
                 } else {
-                    Log.d(TAG, "Silinecek ürün bulunamadı.");
+                    Log.d(TAG, "Silinecek hesap bulunamadı.");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Ürün silinirken bir hata oluştu.", databaseError.toException());
+                Log.w(TAG, "Hesap silinirken bir hata oluştu.", databaseError.toException());
             }
         });
     }

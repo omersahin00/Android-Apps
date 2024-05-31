@@ -28,4 +28,12 @@ public class Brand {
     public int getImageResource() {
         return imageResource;
     }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "name='" + name + '\'' +
+                ", imageResource=" + imageResource +
+                '}';
+    }
 }

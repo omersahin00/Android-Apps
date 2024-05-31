@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         FirebaseApp.initializeApp(this);
-        AccountFirebaseDatabaseHelper accountFirebaseDatabaseHelper = new AccountFirebaseDatabaseHelper(Account.class);
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = binding.userNameText.getText().toString();
                 String password = binding.passwordText.getText().toString();
 
-                accountFirebaseDatabaseHelper.getOneAccounts(new AccountFirebaseDatabaseHelper.DataListener<Account>() {
+                accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
                     @Override
                     public void onDataReceived(Account data) {
                         if (data != null) {
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onError(Exception e) {
                         binding.errorText.setText("Bir hata oluştu.");
                     }
-                }, userName);
+                }, userName, "name");
             }
         });
 

@@ -1,7 +1,7 @@
 package com.example.shopapp;
 
 public class Account {
-    private String userName;
+    private String name;
     private String password;
     private int balance;
 
@@ -9,18 +9,18 @@ public class Account {
 
     }
 
-    public Account(String userName, String password, int balance) {
-        this.userName = userName;
+    public Account(String name, String password, int balance) {
+        this.name = name;
         this.password = password;
         this.balance = balance;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -42,7 +42,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "userName='" + userName + '\'' +
+                "userName='" + name + '\'' +
                 "password='" + password + '\'' +
                 ", balance=" + balance +
                 '}';
