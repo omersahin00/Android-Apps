@@ -147,17 +147,34 @@ public class ProductDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
                 if (onCart) {
-                    // silinecek
-                    shoppingCartFirebaseDatabaseHelper.removeData(userName + "_" + product.getIndex(), "primaryKey");
-                    onCart = false;
-                    binding.addCartButton.setText("Sepete Ekle");
+                    if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
+                        shoppingCartFirebaseDatabaseHelper.removeData(userName + "_" + product.getIndex(), "primaryKey");
+                        onCart = false;
+                        binding.addCartButton.setText("Sepete Ekle");
+                    }
+                    else {
+                        onCart = false;
+                        binding.addCartButton.setText("Lütfen Giriş Yapın");
+                    }
                 }
                 else {
-                    // eklenecek
-                    shoppingCartFirebaseDatabaseHelper.addData(new ShoppingCart(userName, product.getIndex()));
-                    onCart = true;
-                    binding.addCartButton.setText("Sepete Eklendi");
+                    if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
+                        shoppingCartFirebaseDatabaseHelper.addData(new ShoppingCart(userName, product.getIndex()));
+                        onCart = true;
+                        binding.addCartButton.setText("Sepete Eklendi");
+                    }
+                    else {
+                        onCart = false;
+                        binding.addCartButton.setText("Lütfen Giriş Yapın");
+                    }
                 }
+            }
+        });
+
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

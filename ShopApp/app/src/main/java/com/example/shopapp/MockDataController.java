@@ -16,11 +16,15 @@ public class MockDataController {
         FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
         FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
         FirebaseDatabaseHelper<Comments> commentsFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Comments.class, "comments");
+        FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+        FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
 
         accountFirebaseDatabaseHelper.removeAllData();
         brandFirebaseDatabaseHelper.removeAllData();
         productFirebaseDatabaseHelper.removeAllData();
         commentsFirebaseDatabaseHelper.removeAllData();
+        favoritesFirebaseDatabaseHelper.removeAllData();
+        shoppingCartFirebaseDatabaseHelper.removeAllData();
     }
     public void AddMockData() {
         RemoveMockData();
@@ -55,6 +59,7 @@ public class MockDataController {
         commentsFirebaseDatabaseHelper.addData(new Comments("yusuf", "TestComment1", 4, 1));
         commentsFirebaseDatabaseHelper.addData(new Comments("şef", "TestComment1", 3, 1));
         commentsFirebaseDatabaseHelper.addData(new Comments("burak", "TestComment1", 2, 1));
+        commentsFirebaseDatabaseHelper.addData(new Comments("nurdan", "TestComment1", 2, 1));
         commentsFirebaseDatabaseHelper.addData(new Comments("enes", "TestComment1", 1, 2));
         commentsFirebaseDatabaseHelper.addData(new Comments("osman", "TestComment1", 2, 2));
         commentsFirebaseDatabaseHelper.addData(new Comments("nisa", "TestComment1", 3, 2));

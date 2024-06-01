@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     public void SetButtons() {
         String isAuth = FileHelper.readFromFile(MainActivity.this, "isAuth");
         Log.d(TAG, "FİLE: " + isAuth);
+
+        // binding.mockDataButton.setVisibility(View.INVISIBLE);
+
         if (isAuth.contains("true")) {
             binding.buttonLogin.setVisibility(View.INVISIBLE);
             binding.mockDataButton.setVisibility(View.INVISIBLE);
@@ -118,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.buttonCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -139,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 // Burada ürünlerin listedeki pozisyonları elde edilebiliyor.
-                Toast.makeText(MainActivity.this, productList.get(position).getName() + " " + productList.get(position).getIndex(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ProductDetailsActivity.class);
                 intent.putExtra("productIndex", productList.get(position).getIndex());
                 startActivity(intent);
