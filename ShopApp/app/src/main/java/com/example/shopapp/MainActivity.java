@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         brandAdapter = new BrandAdapter(brandList, new BrandAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                // Burada markaların listedeki pozisyonları elde edilebiliyor.
                 Toast.makeText(MainActivity.this, "Brand " + brandList.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -135,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 // Burada ürünlerin listedeki pozisyonları elde edilebiliyor.
                 Toast.makeText(MainActivity.this, productList.get(position).getName() + " " + productList.get(position).getIndex(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ProductDetailsActivity.class);
+                intent.putExtra("productIndex", productList.get(position).getIndex());
+                startActivity(intent);
             }
         });
         binding.recyclerView.setAdapter(productAdapter);

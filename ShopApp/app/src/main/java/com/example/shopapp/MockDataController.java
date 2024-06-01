@@ -15,9 +15,12 @@ public class MockDataController {
         FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
         FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
         FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
+        FirebaseDatabaseHelper<Comments> commentsFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Comments.class, "comments");
+
         accountFirebaseDatabaseHelper.removeAllData();
         brandFirebaseDatabaseHelper.removeAllData();
         productFirebaseDatabaseHelper.removeAllData();
+        commentsFirebaseDatabaseHelper.removeAllData();
     }
     public void AddMockData() {
         RemoveMockData();
@@ -25,6 +28,7 @@ public class MockDataController {
         FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
         FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
         FirebaseDatabaseHelper<Product> productFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Product.class, "products");
+        FirebaseDatabaseHelper<Comments> commentsFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Comments.class, "comments");
 
         accountFirebaseDatabaseHelper.addData(new Account("admin", "123", 0));
         accountFirebaseDatabaseHelper.addData(new Account("omer", "123", 10000));
@@ -46,6 +50,15 @@ public class MockDataController {
         productFirebaseDatabaseHelper.addData(new Product(6, "Tişört", 700, "LV", R.drawable.item_4_2));
         productFirebaseDatabaseHelper.addData(new Product(7, "Gömlek", 400, "LV", R.drawable.item_4_3));
         productFirebaseDatabaseHelper.addData(new Product(8, "Tişört", 550, "LV", R.drawable.item_2));
+
+        commentsFirebaseDatabaseHelper.addData(new Comments("omer", "TestComment1", 5, 1));
+        commentsFirebaseDatabaseHelper.addData(new Comments("yusuf", "TestComment1", 4, 1));
+        commentsFirebaseDatabaseHelper.addData(new Comments("şef", "TestComment1", 3, 1));
+        commentsFirebaseDatabaseHelper.addData(new Comments("burak", "TestComment1", 2, 1));
+        commentsFirebaseDatabaseHelper.addData(new Comments("enes", "TestComment1", 1, 2));
+        commentsFirebaseDatabaseHelper.addData(new Comments("osman", "TestComment1", 2, 2));
+        commentsFirebaseDatabaseHelper.addData(new Comments("nisa", "TestComment1", 3, 2));
+
 
         Toast.makeText(activity, "Tüm Sahte Veriler Basıldı.", Toast.LENGTH_SHORT).show();
     }

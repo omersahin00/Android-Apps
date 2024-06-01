@@ -76,6 +76,28 @@ public class FirebaseDatabaseHelper<T> {
         });
     }
 
+    public void getOneDataInt(final DataListener<T> listener, int index, String parameter) {
+        mDatabase.orderByChild(parameter).equalTo(index).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        T item = snapshot.getValue(type);
+                        listener.onDataReceived(item);
+                        return;
+                    }
+                } else {
+                    listener.onDataReceived(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
     public void removeData(String name, String parameter) {
         mDatabase.orderByChild(parameter).equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
