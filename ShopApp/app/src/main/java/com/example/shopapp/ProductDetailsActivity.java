@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.shopapp.databinding.ActivityMainBinding;
 import com.example.shopapp.databinding.ActivityProductDetailsBinding;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     CommentsAdapter commentsAdapter;
     private Product product;
     private float productStar;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,80 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int productIndex = intent.getIntExtra("productIndex", 0);
 
+        userName = FileHelper.readFromFile(ProductDetailsActivity.this, "account");
+
         SetCommentList(productIndex);
         SetProductData(productIndex);
         GetProductPoint(productIndex);
+        SetButtonsLayout();
+        SetButtonListeners();
+    }
+
+
+    public void SetButtonsLayout() {
+        FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+        favoritesFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<Favorites>() {
+            @Override
+            public void onDataReceived(Favorites data) {
+                if (data != null) {
+                    if (data.getUserName().equals(userName) && data.getProductIndex() == product.getIndex()) {
+                        binding.addFavoriteButton.setChecked(true);
+                    }
+                }
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: e", e);
+            }
+        });
+    }
+
+    public void SetButtonListeners() {
+        binding.addFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = binding.addFavoriteButton.isChecked();
+                if (isChecked) {
+                    FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+
+                    if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
+                        favoritesFirebaseDatabaseHelper.addData(new Favorites(userName, product.getIndex()));
+                        binding.addFavoriteButton.setText("Favorilere Eklendi");
+                        return;
+                    }
+
+                    binding.addFavoriteButton.setText("Lütfen giriş yapın");
+                    binding.addFavoriteButton.setChecked(false);
+                }
+                else {
+
+                    FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+
+                    if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
+                        favoritesFirebaseDatabaseHelper.removeData(userName + "_" + product.getIndex(), "productKey");
+                        binding.addFavoriteButton.setText("Favorilere Ekle");
+                        return;
+                    }
+
+                    binding.addFavoriteButton.setText("Lütfen giriş yapın");
+                    binding.addFavoriteButton.setChecked(false);
+                }
+            }
+        });
+
+        binding.addCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        binding.addCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 

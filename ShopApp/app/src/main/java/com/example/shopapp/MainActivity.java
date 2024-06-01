@@ -107,8 +107,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (FileHelper.readFromFile(MainActivity.this, "isAuth").contains("true")) {
+
                     FileHelper.deleteFile(MainActivity.this, "isAuth");
                     FileHelper.writeToFile(MainActivity.this, "isAuth", "false");
+                    FileHelper.deleteFile(MainActivity.this, "account");
+                    FileHelper.writeToFile(MainActivity.this, "account", "null");
+
                     Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

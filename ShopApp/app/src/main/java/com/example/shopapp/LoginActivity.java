@@ -46,7 +46,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataReceived(Account data) {
                         if (data != null) {
                             if (data.getPassword().equals(password)) {
+                                FileHelper.deleteFile(LoginActivity.this, "isAuth");
                                 FileHelper.writeToFile(LoginActivity.this, "isAuth", "true");
+                                FileHelper.deleteFile(LoginActivity.this, "account");
+                                FileHelper.writeToFile(LoginActivity.this, "account", data.getName());
+
                                 binding.errorText.setText("Giriş yapıldı.");
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
