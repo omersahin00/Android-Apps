@@ -32,6 +32,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private Product product;
     private float productStar;
     String userName;
+    boolean onCart = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: e", e);
             }
         });
+
+        binding.addCartButton.setText("Sepete Ekle");
+        FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
+        shoppingCartFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<ShoppingCart>() {
+            @Override
+            public void onDataReceived(ShoppingCart data) {
+                if (data != null) {
+                    if (data.getUserName().equals(userName) && data.getProductIndex() == product.getIndex()) {
+                        onCart = true;
+                        binding.addCartButton.setText("Sepete Eklendi");
+                    }
+                }
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: e", e);
+            }
+        });
     }
 
     public void SetButtonListeners() {
@@ -116,14 +135,29 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Daha yazılmadı.
+                // Daha yazılmadı.
+                // Daha yazılmadı.
+                // Daha yazılmadı.
             }
         });
 
         binding.addCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
+                if (onCart) {
+                    // silinecek
+                    shoppingCartFirebaseDatabaseHelper.removeData(userName + "_" + product.getIndex(), "primaryKey");
+                    onCart = false;
+                    binding.addCartButton.setText("Sepete Ekle");
+                }
+                else {
+                    // eklenecek
+                    shoppingCartFirebaseDatabaseHelper.addData(new ShoppingCart(userName, product.getIndex()));
+                    onCart = true;
+                    binding.addCartButton.setText("Sepete Eklendi");
+                }
             }
         });
     }

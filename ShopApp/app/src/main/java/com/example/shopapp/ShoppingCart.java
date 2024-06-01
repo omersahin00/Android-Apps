@@ -1,17 +1,17 @@
 package com.example.shopapp;
 
-public class Favorites {
+public class ShoppingCart {
     private String userName;
     private int productIndex;
-    private String productKey;
+    private String primaryKey;
 
-    public Favorites(String userName, int productIndex) {
+    public ShoppingCart(String userName, int productIndex) {
         this.userName = userName;
         this.productIndex = productIndex;
-        this.productKey = userName + "_" + productIndex;
+        this.primaryKey = userName + "_" + productIndex;
     }
 
-    public Favorites() {
+    public ShoppingCart() {
     }
 
     public String getUserName() {
@@ -20,7 +20,7 @@ public class Favorites {
 
     public void setUserName(String userName) {
         this.userName = userName;
-        this.productKey = userName + "_" + this.productIndex;
+        this.primaryKey = userName + "_" + this.productIndex;
     }
 
     public int getProductIndex() {
@@ -29,23 +29,23 @@ public class Favorites {
 
     public void setProductIndex(int productIndex) {
         this.productIndex = productIndex;
-        this.productKey = this.userName + "_" + productIndex;
+        this.primaryKey = this.userName + "_" + productIndex;
     }
 
-    public String getProductKey() {
-        return productKey;
+    public String getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setProductKey(String productKey) {
-        this.productKey = productKey;
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     @Override
     public String toString() {
-        return "Favorites{" +
+        return "ShoppingCart{" +
                 "userName='" + userName + '\'' +
                 ", productIndex=" + productIndex +
-                ", productKey='" + productKey + '\'' +
+                ", primaryKey='" + primaryKey + '\'' +
                 '}';
     }
 }
