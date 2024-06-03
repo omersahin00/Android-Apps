@@ -43,8 +43,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
         userName = FileHelper.readFromFile(ShoppingCartActivity.this, "account");
 
         SetCartList();
+
         shoppingCartAdapter = new ShoppingCartAdapter(this, shoppingCartList, userName);
         binding.listView.setAdapter(shoppingCartAdapter);
+
+        SetPriceLayouts();
     }
 
 
@@ -76,6 +79,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             public void onDataReceived(Product data) {
                 shoppingCartList.add(data);
                 shoppingCartAdapter.notifyDataSetChanged();
+                SetPriceLayouts();
             }
             @Override
             public void onError(Exception e) {
@@ -83,9 +87,28 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
         }, productIndex, "index");
     }
+
+    public void SetPriceLayouts() {
+        int cartPrice = 0;
+        int cargoPrice = 0;
+        int totalPrice;
+
+        for (Product product : shoppingCartList) {
+            cartPrice += product.getPrice();
+        }
+
+        binding.cartPriceText.setText(cartPrice + " TL");
+
+        if (cartPrice < 500) {
+            cargoPrice += (shoppingCartList.size() * 50);
+            binding.cargoPriceText.setText(cargoPrice + " TL");
+        }
+        else binding.cargoPriceText.setText("0 TL");
+
+        totalPrice = cartPrice + cargoPrice;
+        binding.totalPriceText.setText(totalPrice + " TL");
+    }
 }
-
-
 
 
 

@@ -15,14 +15,14 @@ import android.widget.TextView;
 import java.util.List;
 
 public class ShoppingCartAdapter extends ArrayAdapter<Product> {
-
-    private Context context;
+    private ShoppingCartActivity shoppingCartActivity;
     private List<Product> products;
     private String userName;
 
-    public ShoppingCartAdapter(Context context, List<Product> products, String userName) {
-        super(context, 0, products);
-        this.context = context;
+
+    public ShoppingCartAdapter(ShoppingCartActivity shoppingCartActivity, List<Product> products, String userName) {
+        super(shoppingCartActivity, 0, products);
+        this.shoppingCartActivity = shoppingCartActivity;
         this.products = products;
         this.userName = userName;
     }
@@ -69,6 +69,8 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
                         if (product1.getIndex() == products.get(position).getIndex()) {
                             products.remove(product1);
                             notifyDataSetChanged();
+
+                            shoppingCartActivity.SetPriceLayouts();
                             break;
                         }
                     }
