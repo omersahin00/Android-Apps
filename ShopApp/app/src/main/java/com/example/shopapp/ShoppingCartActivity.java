@@ -23,6 +23,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     List<Product> shoppingCartList;
     ShoppingCartAdapter shoppingCartAdapter;
     String userName;
+    public int totalPrice = 0;
+    public int addedPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +91,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     public void SetPriceLayouts() {
-        int cartPrice = 0;
+        int cartPrice = 0 + addedPrice;
         int cargoPrice = 0;
-        int totalPrice;
 
         for (Product product : shoppingCartList) {
             cartPrice += product.getPrice();

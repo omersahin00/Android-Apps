@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShoppingCartAdapter extends ArrayAdapter<Product> {
     private ShoppingCartActivity shoppingCartActivity;
     private List<Product> products;
+    private List<Integer> productsCount;
     private String userName;
 
 
@@ -24,6 +27,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
         super(shoppingCartActivity, 0, products);
         this.shoppingCartActivity = shoppingCartActivity;
         this.products = products;
+        productsCount = new ArrayList<>();
         this.userName = userName;
     }
 
@@ -48,7 +52,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
         productPrice.setText(String.valueOf(product.getPrice() + " TL"));
         productImage.setImageResource(product.getImageResource());
 
-        productQuantity.setText(String.valueOf(1));
+        productsCount.add(1);
+
+        productQuantity.setText(String.valueOf(productsCount.get(position)));
 
         decreaseQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,20 +62,24 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
                 int quantity = Integer.parseInt(productQuantity.getText().toString());
                 if (quantity > 1) {
                     quantity--;
+                    productsCount.set(position, productsCount.get(position) - 1);
+                    shoppingCartActivity.addedPrice -= products.get(position).getPrice();
+                    shoppingCartActivity.SetPriceLayouts();
                     productQuantity.setText(String.valueOf(quantity));
                 }
                 else {
                     FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
 
                     String primaryKey = userName + "_" + products.get(position).getIndex();
-
                     shoppingCartFirebaseDatabaseHelper.removeData(primaryKey, "primaryKey");
+
+                    productsCount.set(position, productsCount.get(position) - 1);
+                    productsCount.remove(position);
 
                     for (Product product1 : products) {
                         if (product1.getIndex() == products.get(position).getIndex()) {
                             products.remove(product1);
                             notifyDataSetChanged();
-
                             shoppingCartActivity.SetPriceLayouts();
                             break;
                         }
@@ -87,6 +97,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
                 int quantity = Integer.parseInt(productQuantity.getText().toString());
                 quantity++;
                 productQuantity.setText(String.valueOf(quantity));
+                productsCount.set(position, productsCount.get(position) + 1);
+                shoppingCartActivity.addedPrice += products.get(position).getPrice();
+                shoppingCartActivity.SetPriceLayouts();
             }
         });
 
