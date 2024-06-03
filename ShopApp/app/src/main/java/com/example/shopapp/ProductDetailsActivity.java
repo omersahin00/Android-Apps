@@ -71,6 +71,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (data != null) {
                     if (data.getUserName().equals(userName) && data.getProductIndex() == product.getIndex()) {
                         binding.addFavoriteButton.setChecked(true);
+                        binding.addFavoriteButton.setText("Favorilere Eklendi");
                     }
                 }
             }
