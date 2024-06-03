@@ -43,7 +43,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         userName = FileHelper.readFromFile(ShoppingCartActivity.this, "account");
 
         SetCartList();
-        shoppingCartAdapter = new ShoppingCartAdapter(this, shoppingCartList);
+        shoppingCartAdapter = new ShoppingCartAdapter(this, shoppingCartList, userName);
         binding.listView.setAdapter(shoppingCartAdapter);
     }
 
