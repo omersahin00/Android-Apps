@@ -49,6 +49,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
         shoppingCartAdapter = new ShoppingCartAdapter(this, shoppingCartList, userName);
         binding.listView.setAdapter(shoppingCartAdapter);
 
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         SetPriceLayouts();
     }
 
