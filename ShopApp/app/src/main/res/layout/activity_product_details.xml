@@ -27,23 +27,55 @@
 
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/productNameText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Yükleniyor..."
-            android:textSize="20dp" />
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/productPriceText"
+            <ImageView
+                android:id="@+id/brandIcon"
+                android:layout_width="65dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/productNameText"
+                android:layout_width="330dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingRight="60dp"
+                android:text="Yükleniyor..."
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Yükleniyor..."
-            android:textSize="15dp" />
+            android:layout_height="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/brandNameText"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginRight="30dp"
+                android:text="Yklnyr..." />
+
+            <TextView
+                android:id="@+id/productPriceText"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingRight="100dp"
+                android:text="Yükleniyor..."
+                android:textSize="15dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

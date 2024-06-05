@@ -33,6 +33,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private float productStar;
     String userName;
     boolean onCart = false;
+    private int productBrandImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +197,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     product.setImageResource(data.getImageResource());
 
                     SetProductLayout();
+                    SetBrandLayout();
                 }
             }
             @Override
@@ -265,4 +267,29 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void SetBrandLayout() {
+        FirebaseDatabaseHelper<Brand> brandFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Brand.class, "brands");
+        brandFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Brand>() {
+            @Override
+            public void onDataReceived(Brand data) {
+                if (data != null) {
+                    productBrandImage = data.getImageResource();
+                    binding.brandIcon.setImageResource(productBrandImage);
+                    binding.brandNameText.setText(product.getBrandName());
+                }
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        }, product.getBrandName(), "name");
+    }
 }
+
+
+
+
+
+
