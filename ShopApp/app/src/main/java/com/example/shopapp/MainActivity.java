@@ -129,6 +129,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.buttonLiked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

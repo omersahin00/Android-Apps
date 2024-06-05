@@ -21,7 +21,6 @@ public class FavoriteCardAdapter extends ArrayAdapter<Product> {
     private List<Product> products;
     private String userName;
 
-
     public FavoriteCardAdapter(FavoritesActivity favoritesActivity, List<Product> products, String userName) {
         super(favoritesActivity, 0, products);
         this.favoritesActivity = favoritesActivity;
@@ -49,6 +48,21 @@ public class FavoriteCardAdapter extends ArrayAdapter<Product> {
         productPrice.setText(String.valueOf(product.getPrice() + " TL"));
         productImage.setImageResource(product.getImageResource());
 
+
+        removeFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+                favoritesFirebaseDatabaseHelper.removeData(userName + "_" + products.get(position).getIndex(), "productKey");
+                for (Product product1 : products) {
+                    if (product1.getIndex() == products.get(position).getIndex()){
+                        products.remove(product1);
+                        break;
+                    }
+                }
+                notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }

@@ -47,10 +47,18 @@ public class FavoritesActivity extends AppCompatActivity {
         favoriteCardAdapter = new FavoriteCardAdapter(this, favoritesList, userName);
         binding.listView.setAdapter(favoriteCardAdapter);;
 
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void SetFavoritesList() {
         List<Favorites> dumpList = new ArrayList<>();
+        favoritesList = new ArrayList<>();
+
         FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
         favoritesFirebaseDatabaseHelper.getAllData(new FirebaseDatabaseHelper.DataListener<Favorites>() {
             @Override
