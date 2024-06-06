@@ -6,8 +6,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,20 @@ public class FirebaseDatabaseHelper<T> {
 
     public void addData(T data) {
         mDatabase.push().setValue(data);
+    }
+
+    public void addDataWithListener(final DataListener<Void> listener, T data) {
+        mDatabase.push().setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    listener.onDataReceived(null);
+                }
+                else {
+                    listener.onError(task.getException());
+                }
+            }
+        });
     }
 
     public void getAllData(final DataListener<T> listener) {

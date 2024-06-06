@@ -63,11 +63,13 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 }, userName, "name");
             }
             else {
-                binding.accountErrorButton.setText("Oturum açılmamış!");
+                binding.accountInfoText.setTextColor(Color.RED);
+                binding.accountInfoText.setText("Oturum açılmamış!");
             }
         }
         else {
-            binding.accountErrorButton.setText("Oturum açılmamış!");
+            binding.accountInfoText.setTextColor(Color.RED);
+            binding.accountInfoText.setText("Oturum açılmamış!");
         }
     }
 
@@ -117,8 +119,16 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 DeleteAccount();
             }
         });
-    }
 
+        binding.accountSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.accountInfoText.setTextColor(Color.RED);
+                binding.accountInfoText.setText("Şifreniz güncelleniyor...");
+                SaveAccount();
+            }
+        });
+    }
 
     private void DeleteAccount() {
         binding.deletionWarningText.setText("Hesabınız siliniyor...");
@@ -174,6 +184,33 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: ", e);
             }
         }, account.getName(), "userName");
+    }
+
+    private void SaveAccount() {
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+        String newPassowrd = binding.accountPasswordText.getText().toString();
+
+        accountFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<Account>() {
+            @Override
+            public void onDataReceived(Account data) {
+                account.setPassword(String.valueOf(newPassowrd));
+                accountFirebaseDatabaseHelper.addDataWithListener(new FirebaseDatabaseHelper.DataListener<Void>() {
+                    @Override
+                    public void onDataReceived(Void data) {
+                        binding.accountInfoText.setTextColor(Color.GREEN);
+                        binding.accountInfoText.setText("Şifreniz başarıyla güncellendi.");
+                    }
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+                }, account);
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        }, account.getName(), "name");
     }
 }
 

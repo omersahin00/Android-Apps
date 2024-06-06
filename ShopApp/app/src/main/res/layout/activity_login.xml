@@ -52,9 +52,11 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="96dp"
-        android:layout_height="66dp"
+        android:layout_width="110dp"
+        android:layout_height="63dp"
+        android:backgroundTint="#4CAF50"
         android:text="Login"
+        app:icon="@drawable/loginicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
