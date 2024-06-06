@@ -97,7 +97,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Sepete Ekle" />
+                android:backgroundTint="#258E29"
+                android:text="Sepete Ekle"
+                app:icon="@drawable/btn_3" />
 
         </LinearLayout>
 
@@ -120,7 +122,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="Yorum Yap" />
+                android:backgroundTint="#3F51B5"
+                android:text="Yorum Yap"
+                app:icon="@drawable/message_icon" />
 
         </LinearLayout>
 
