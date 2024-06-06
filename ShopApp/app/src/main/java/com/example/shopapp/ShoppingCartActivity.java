@@ -23,6 +23,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     List<Product> shoppingCartList;
     ShoppingCartAdapter shoppingCartAdapter;
     String userName;
+    Account account;
     public int totalPrice = 0;
     public int addedPrice = 0;
 
@@ -44,6 +45,22 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         userName = FileHelper.readFromFile(ShoppingCartActivity.this, "account");
 
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+        accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
+            @Override
+            public void onDataReceived(Account data) {
+                if (data != null) {
+                    account = data;
+                }
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        }, userName, "name");
+
+        binding.buyConfirmationBox.setVisibility(View.INVISIBLE);
+
         SetCartList();
 
         shoppingCartAdapter = new ShoppingCartAdapter(this, shoppingCartList, userName);
@@ -57,6 +74,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
 
         SetPriceLayouts();
+        SetBuyLayout();
     }
 
 
@@ -115,6 +133,40 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         totalPrice = cartPrice + cargoPrice;
         binding.totalPriceText.setText(totalPrice + " TL");
+    }
+
+    private void SetBuyLayout() {
+        binding.buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.buyInfoText.setText("");
+                binding.balanceText.setText(String.valueOf(account.getBalance()) + " TL");
+                binding.buyPriceText.setText(binding.totalPriceText.getText());
+
+                binding.buyConfirmationBox.setVisibility(View.VISIBLE);
+                binding.buyButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        binding.cancelBuyingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.buyConfirmationBox.setVisibility(View.INVISIBLE);
+                binding.buyButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.confirmBuyingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.buyInfoText.setText("Sparişiniz oluşturuluyor...");
+
+                // Satın alma işlemleri yazılacak.
+                // Satın alma işlemleri yazılacak.
+                // Satın alma işlemleri yazılacak.
+                // Satın alma işlemleri yazılacak.
+            }
+        });
     }
 }
 
