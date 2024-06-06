@@ -2,6 +2,8 @@ package com.example.shopapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.shopapp.databinding.ActivityAccountDetailsBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountDetailsActivity extends AppCompatActivity {
     private ActivityAccountDetailsBinding binding;
@@ -33,6 +38,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        binding.deleteConfirmationBox.setVisibility(View.INVISIBLE);
 
         SetAccount();
         SetLayout();
@@ -89,20 +96,89 @@ public class AccountDetailsActivity extends AppCompatActivity {
             }
         });
 
-        // Diğer butonlar da yazılacak.
-        // Diğer butonlar da yazılacak.
-        // Diğer butonlar da yazılacak.
-        // Diğer butonlar da yazılacak.
+        binding.accountDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.accountDeleteButton.setVisibility(View.INVISIBLE);
+                binding.accountSaveButton.setVisibility(View.INVISIBLE);
+                binding.deleteConfirmationBox.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.accountCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.deleteConfirmationBox.setVisibility(View.INVISIBLE);
+                binding.accountDeleteButton.setVisibility(View.VISIBLE);
+                binding.accountSaveButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.accountReDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeleteAccount();
+            }
+        });
+    }
+
+
+    private void DeleteAccount() {
+        binding.deletionWarningText.setText("Hesabınız siliniyor...");
+
+        FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+        accountFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<Account>() {
+            @Override
+            public void onDataReceived(Account data) {
+                DeleteAccountFavorites();
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+                binding.deletionWarningText.setText("Hesap silinirken bir sorun oluştu.");
+                finish();
+            }
+        }, account.getName(), "name");
+    }
+
+    private void DeleteAccountFavorites() {
+        FirebaseDatabaseHelper<Favorites> favoritesFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Favorites.class, "favorites");
+
+        favoritesFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<Favorites>() {
+            @Override
+            public void onDataReceived(Favorites data) {
+                DeleteAccountCarts();
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        }, account.getName(), "userName");
+    }
+
+    private void DeleteAccountCarts() {
+        FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
+
+        shoppingCartFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<ShoppingCart>() {
+            @Override
+            public void onDataReceived(ShoppingCart data) {
+                FileHelper.deleteFile(AccountDetailsActivity.this, "isAuth");
+                FileHelper.writeToFile(AccountDetailsActivity.this, "isAuth", "false");
+                FileHelper.deleteFile(AccountDetailsActivity.this, "account");
+
+                binding.deletionWarningText.setTextColor(Color.green(1));
+                binding.deletionWarningText.setText("Hesabınız silindi...");
+
+                Intent intent = new Intent(AccountDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        }, account.getName(), "userName");
     }
 }
-
-
-
-
-
-
-
-
 
 
 

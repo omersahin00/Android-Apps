@@ -159,4 +159,76 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.12" />
 
+    <FrameLayout
+        android:layout_width="409dp"
+        android:layout_height="202dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.786">
+
+        <LinearLayout
+            android:id="@+id/deleteConfirmationBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DEDEDE"
+            android:paddingRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:gravity="center"
+                android:text="DİKKAT !!!"
+                android:textColor="#FF0000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/deletionWarningText"
+                android:layout_width="367dp"
+                android:layout_height="89dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:text="Hesabınız tamamıyla silinecektir!"
+                android:textColor="#FF0000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/accountReDeleteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF0000"
+                    android:text="Tamamıyla Sil"
+                    app:icon="@drawable/trash_icon" />
+
+                <Button
+                    android:id="@+id/accountCancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00B007"
+                    android:text="Vazgeç"
+                    app:icon="@drawable/close_x" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

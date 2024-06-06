@@ -108,18 +108,53 @@ public class FirebaseDatabaseHelper<T> {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "Hesap başarıyla silindi.");
+                                        Log.d(TAG, "Veri başarıyla silindi.");
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Hesap silinirken bir hata oluştu.", e);
+                                        Log.w(TAG, "Veri silinirken bir hata oluştu.", e);
                                     }
                                 });
                     }
                 } else {
-                    Log.d(TAG, "Silinecek hesap bulunamadı.");
+                    Log.d(TAG, "Silinecek veri bulunamadı.");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Veri silinirken bir hata oluştu.", databaseError.toException());
+            }
+        });
+    }
+
+
+    public void removeDataWithListener(final DataListener<T> listener, String name, String parameter) {
+        mDatabase.orderByChild(parameter).equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        snapshot.getRef().removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        T item = snapshot.getValue(type);
+                                        listener.onDataReceived(item);
+                                        Log.d(TAG, "Veri başarıyla silindi.");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Veri silinirken bir hata oluştu.", e);
+                                    }
+                                });
+                    }
+                } else {
+                    Log.d(TAG, "Silinecek veri bulunamadı.");
                 }
             }
 
