@@ -26,6 +26,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Account account;
     public int totalPrice = 0;
     public int addedPrice = 0;
+    private boolean isBuying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,12 +160,60 @@ public class ShoppingCartActivity extends AppCompatActivity {
         binding.confirmBuyingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.buyInfoText.setText("Sparişiniz oluşturuluyor...");
+                if (!isBuying) {
+                    if (account.getBalance() < totalPrice) {
+                        binding.buyInfoText.setText("Yeterli bakiyeniz bulunmamakta!");
+                        return;
+                    }
 
-                // Satın alma işlemleri yazılacak.
-                // Satın alma işlemleri yazılacak.
-                // Satın alma işlemleri yazılacak.
-                // Satın alma işlemleri yazılacak.
+                    binding.buyInfoText.setText("Sparişiniz oluşturuluyor...");
+                    int balance = account.getBalance();
+                    balance -= totalPrice;
+                    account.setBalance(balance);
+
+                    FirebaseDatabaseHelper<Account> accountFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(Account.class, "accounts");
+                    FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
+
+                    accountFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<Account>() {
+                        @Override
+                        public void onDataReceived(Account data) {
+                            accountFirebaseDatabaseHelper.addDataWithListener(new FirebaseDatabaseHelper.DataListener<Void>() {
+                                @Override
+                                public void onDataReceived(Void data) {
+
+                                    shoppingCartFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<ShoppingCart>() {
+                                        @Override
+                                        public void onDataReceived(ShoppingCart data) {
+                                            binding.buyInfoText.setText("Sparişiniz alındı.");
+                                            binding.confirmBuyingButton.setText("Ana sayfaya Dön");
+                                            binding.cancelBuyingButton.setVisibility(View.INVISIBLE);
+                                            binding.cartLayout.setVisibility(View.INVISIBLE);
+                                            binding.BakiyenizText.setText("Güncel Bakiyeniz:");
+                                            binding.balanceText.setText(String.valueOf(account.getBalance()));
+                                            isBuying = true;
+                                            shoppingCartAdapter.notifyDataSetChanged();
+                                        }
+                                        @Override
+                                        public void onError(Exception e) {
+                                            Log.e(TAG, "onError: ", e);
+                                        }
+                                    }, account.getName(), "userName");
+                                }
+                                @Override
+                                public void onError(Exception e) {
+                                    Log.e(TAG, "onError: ", e);
+                                }
+                            }, account);
+                        }
+                        @Override
+                        public void onError(Exception e) {
+                            Log.e(TAG, "onError: ", e);
+                        }
+                    }, account.getName(), "name");
+                }
+                else {
+                    finish();
+                }
             }
         });
     }

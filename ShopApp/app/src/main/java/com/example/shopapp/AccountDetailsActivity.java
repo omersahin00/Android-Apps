@@ -78,7 +78,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         if (account != null) {
             binding.accountNameText.setText(account.getName());
             binding.accountPasswordText.setText(account.getPassword());
-            binding.balanceAccountText.setText(String.valueOf(account.getBalance()));
+            binding.balanceAccountText.setText(String.valueOf(account.getBalance()) + " TL");
         }
         else {
             binding.accountNameText.setText("Yükleniyor...");
