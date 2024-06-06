@@ -137,10 +137,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Daha yazılmadı.
-                // Daha yazılmadı.
-                // Daha yazılmadı.
-                // Daha yazılmadı.
+                if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
+                    Intent intent = new Intent(ProductDetailsActivity.this, CommentCreateActivity.class);
+                    intent.putExtra("productIndex", product.getIndex());
+                    //startActivity(intent);
+                    startActivityForResult(intent, 1);
+                }
+                else {
+                    binding.addCommentButton.setText("Oturum Açın");
+                }
             }
         });
 
@@ -285,6 +290,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: ", e);
             }
         }, product.getBrandName(), "name");
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                SetCommentList(product.getIndex());
+                GetProductPoint(product.getIndex());
+            }
+        }
     }
 }
 
