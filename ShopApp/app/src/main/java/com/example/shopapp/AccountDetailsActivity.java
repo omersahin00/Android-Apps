@@ -16,9 +16,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.shopapp.databinding.ActivityAccountDetailsBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AccountDetailsActivity extends AppCompatActivity {
     private ActivityAccountDetailsBinding binding;
     private Account account;
