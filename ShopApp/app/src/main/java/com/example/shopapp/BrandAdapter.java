@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Brand brand = mBrandList.get(position);
         holder.brandImage.setImageResource(brand.getImageResource());
+        holder.brandImageNameText.setText(brand.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +55,11 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView brandImage;
-
+        TextView brandImageNameText;
         public ViewHolder(View itemView) {
             super(itemView);
             brandImage = itemView.findViewById(R.id.brandImage);
+            brandImageNameText = itemView.findViewById(R.id.brandImageNameText);
         }
     }
 }

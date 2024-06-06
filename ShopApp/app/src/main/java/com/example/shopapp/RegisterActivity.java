@@ -1,5 +1,6 @@
 package com.example.shopapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -42,6 +43,15 @@ public class RegisterActivity extends AppCompatActivity {
                     String userName = binding.userNameText.getText().toString();
                     String password = binding.passwordText.getText().toString();
 
+                    if (userName.isEmpty()) {
+                        binding.errorText.setText("Kullanıcı adı boş bırakılamaz.");
+                        return;
+                    }
+                    if (password.isEmpty()) {
+                        binding.errorText.setText("Şifre alanı boş bırakılamaz.");
+                        return;
+                    }
+
                     accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
                         @Override
                         public void onDataReceived(Account data) {
@@ -52,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Account account = new Account(userName, password, 10000);
                                 accountFirebaseDatabaseHelper.addData(account);
                                 binding.errorText.setText("Kayıt olma başarılı.");
-                                binding.registerButton.setText("Ana Sayfaya Dön");
+                                binding.registerButton.setText("Oturum Aç");
                                 isCreated = true;
                             }
                         }
@@ -63,7 +73,8 @@ public class RegisterActivity extends AppCompatActivity {
                     }, userName, "name");
                 }
                 else {
-                    finish();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
             }
         });

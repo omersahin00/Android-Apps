@@ -88,6 +88,22 @@ public class AccountDetailsActivity extends AppCompatActivity {
     }
 
     private void SetButtonsListener() {
+        binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (FileHelper.readFromFile(AccountDetailsActivity.this, "isAuth").contains("true")) {
+
+                    FileHelper.deleteFile(AccountDetailsActivity.this, "isAuth");
+                    FileHelper.writeToFile(AccountDetailsActivity.this, "isAuth", "false");
+                    FileHelper.deleteFile(AccountDetailsActivity.this, "account");
+                    FileHelper.writeToFile(AccountDetailsActivity.this, "account", "null");
+
+                    Intent intent = new Intent(AccountDetailsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
         binding.closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +117,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 binding.accountDeleteButton.setVisibility(View.INVISIBLE);
                 binding.accountSaveButton.setVisibility(View.INVISIBLE);
                 binding.deleteConfirmationBox.setVisibility(View.VISIBLE);
+                binding.buttonLogout.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -110,6 +127,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 binding.deleteConfirmationBox.setVisibility(View.INVISIBLE);
                 binding.accountDeleteButton.setVisibility(View.VISIBLE);
                 binding.accountSaveButton.setVisibility(View.VISIBLE);
+                binding.buttonLogout.setVisibility(View.VISIBLE);
             }
         });
 

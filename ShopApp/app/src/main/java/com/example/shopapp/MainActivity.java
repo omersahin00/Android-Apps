@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         String isAuth = FileHelper.readFromFile(MainActivity.this, "isAuth");
         Log.d(TAG, "FİLE: " + isAuth);
 
-        // binding.mockDataButton.setVisibility(View.INVISIBLE);
+        binding.mockDataButton.setVisibility(View.INVISIBLE);
 
         if (isAuth.contains("true")) {
             binding.buttonLogin.setVisibility(View.INVISIBLE);
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             binding.buttonCart.setVisibility(View.INVISIBLE);
             binding.buttonLiked.setVisibility(View.INVISIBLE);
             binding.buttonProfile.setVisibility(View.INVISIBLE);
-            binding.buttonLogout.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -103,22 +102,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FileHelper.readFromFile(MainActivity.this, "isAuth").contains("true")) {
-
-                    FileHelper.deleteFile(MainActivity.this, "isAuth");
-                    FileHelper.writeToFile(MainActivity.this, "isAuth", "false");
-                    FileHelper.deleteFile(MainActivity.this, "account");
-                    FileHelper.writeToFile(MainActivity.this, "account", "null");
-
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
             }
         });
 

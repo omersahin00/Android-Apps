@@ -134,6 +134,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         totalPrice = cartPrice + cargoPrice;
         binding.totalPriceText.setText(totalPrice + " TL");
+
+        if (totalPrice <= 0) {
+            binding.buyButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            binding.buyButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void SetBuyLayout() {

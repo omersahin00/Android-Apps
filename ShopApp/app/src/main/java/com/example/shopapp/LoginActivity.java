@@ -41,6 +41,15 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = binding.userNameText.getText().toString();
                 String password = binding.passwordText.getText().toString();
 
+                if (userName.isEmpty()) {
+                    binding.errorText.setText("Kullanıcı adı boş bırakılamaz.");
+                    return;
+                }
+                if (password.isEmpty()) {
+                    binding.errorText.setText("Şifre alanı boş bırakılamaz.");
+                    return;
+                }
+
                 accountFirebaseDatabaseHelper.getOneData(new FirebaseDatabaseHelper.DataListener<Account>() {
                     @Override
                     public void onDataReceived(Account data) {

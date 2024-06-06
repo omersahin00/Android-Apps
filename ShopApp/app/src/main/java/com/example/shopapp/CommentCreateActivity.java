@@ -93,5 +93,12 @@ public class CommentCreateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        binding.closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
