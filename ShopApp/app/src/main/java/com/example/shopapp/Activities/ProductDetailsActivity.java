@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.shopapp.Models.Brand;
 import com.example.shopapp.Models.Comments;
 import com.example.shopapp.Adapters.CommentsAdapter;
@@ -52,6 +54,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(binding.productImage);
 
         Intent intent = getIntent();
         int productIndex = intent.getIntExtra("productIndex", 0);
