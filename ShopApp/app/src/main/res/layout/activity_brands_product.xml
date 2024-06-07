@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="5dp"
     tools:context=".Activities.BrandsProductActivity">
 
     <ImageView
@@ -36,6 +37,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="411dp"
         android:layout_height="657dp"
+        android:paddingHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
