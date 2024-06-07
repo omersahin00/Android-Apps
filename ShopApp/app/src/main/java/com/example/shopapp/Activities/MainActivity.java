@@ -143,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 // Burada markaların listedeki pozisyonları elde edilebiliyor.
                 Toast.makeText(MainActivity.this, "Brand " + brandList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, BrandsProductActivity.class);
+                intent.putExtra("brandName", brandList.get(position).getName());
+                startActivity(intent);
             }
         });
         binding.horizontalRecyclerView.setAdapter(brandAdapter);
