@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.shopapp.Models.Account;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.R;
 import com.example.shopapp.databinding.ActivityLoginBinding;
 import com.google.firebase.FirebaseApp;
 

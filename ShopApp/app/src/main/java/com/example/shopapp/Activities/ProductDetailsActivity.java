@@ -1,29 +1,31 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import static android.content.ContentValues.TAG;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.shopapp.databinding.ActivityMainBinding;
+import com.example.shopapp.Models.Brand;
+import com.example.shopapp.Models.Comments;
+import com.example.shopapp.Adapters.CommentsAdapter;
+import com.example.shopapp.Models.Favorites;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.R;
+import com.example.shopapp.Models.ShoppingCart;
 import com.example.shopapp.databinding.ActivityProductDetailsBinding;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private ActivityProductDetailsBinding binding;

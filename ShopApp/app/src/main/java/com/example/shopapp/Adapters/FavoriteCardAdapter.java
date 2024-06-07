@@ -1,9 +1,5 @@
-package com.example.shopapp;
+package com.example.shopapp.Adapters;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +8,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.example.shopapp.Activities.FavoritesActivity;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.Models.Favorites;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.R;
+
 import java.util.List;
 
 public class FavoriteCardAdapter extends ArrayAdapter<Product> {

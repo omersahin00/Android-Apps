@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Helpers;
 
 import static android.content.ContentValues.TAG;
 

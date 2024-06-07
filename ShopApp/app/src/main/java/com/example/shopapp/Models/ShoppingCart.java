@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Models;
 
 public class ShoppingCart {
     private String userName;

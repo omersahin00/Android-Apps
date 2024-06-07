@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import static android.content.ContentValues.TAG;
 
@@ -17,13 +17,19 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.shopapp.Models.Brand;
+import com.example.shopapp.Adapters.BrandAdapter;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.Helpers.MockDataController;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.Adapters.ProductAdapter;
+import com.example.shopapp.R;
 import com.example.shopapp.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

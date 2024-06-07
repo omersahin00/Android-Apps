@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import static android.content.ContentValues.TAG;
 
@@ -12,8 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.shopapp.Adapters.FavoriteCardAdapter;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.Models.Favorites;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.R;
 import com.example.shopapp.databinding.ActivityFavoritesBinding;
-import com.example.shopapp.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;

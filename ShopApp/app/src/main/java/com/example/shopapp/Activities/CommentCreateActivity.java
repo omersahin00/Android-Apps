@@ -1,10 +1,9 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,8 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.shopapp.Models.Comments;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.R;
 import com.example.shopapp.databinding.ActivityCommentCreateBinding;
-import com.example.shopapp.databinding.ActivityProductDetailsBinding;
 
 public class CommentCreateActivity extends AppCompatActivity {
     private ActivityCommentCreateBinding binding;

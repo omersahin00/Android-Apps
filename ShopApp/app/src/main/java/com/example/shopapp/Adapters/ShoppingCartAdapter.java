@@ -1,9 +1,5 @@
-package com.example.shopapp;
+package com.example.shopapp.Adapters;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +8,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shopapp.Activities.ShoppingCartActivity;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.Models.ShoppingCart;
+import com.example.shopapp.R;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ShoppingCartAdapter extends ArrayAdapter<Product> {

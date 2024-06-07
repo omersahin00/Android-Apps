@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Helpers;
 
 import android.content.Context;
 import android.util.Log;

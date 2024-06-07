@@ -1,7 +1,15 @@
-package com.example.shopapp;
+package com.example.shopapp.Helpers;
 
 import android.app.Activity;
 import android.widget.Toast;
+
+import com.example.shopapp.Models.Account;
+import com.example.shopapp.Models.Brand;
+import com.example.shopapp.Models.Comments;
+import com.example.shopapp.Models.Favorites;
+import com.example.shopapp.Models.Product;
+import com.example.shopapp.Models.ShoppingCart;
+import com.example.shopapp.R;
 
 public class MockDataController {
 

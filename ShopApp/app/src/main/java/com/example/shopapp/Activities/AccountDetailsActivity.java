@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.Activities;
 
 import static android.content.ContentValues.TAG;
 
@@ -14,6 +14,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.shopapp.Models.Account;
+import com.example.shopapp.Models.Favorites;
+import com.example.shopapp.Helpers.FileHelper;
+import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
+import com.example.shopapp.R;
+import com.example.shopapp.Models.ShoppingCart;
 import com.example.shopapp.databinding.ActivityAccountDetailsBinding;
 
 public class AccountDetailsActivity extends AppCompatActivity {
