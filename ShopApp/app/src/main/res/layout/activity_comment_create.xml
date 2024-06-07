@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.546" />
 
     <Button
         android:id="@+id/commentDeleteButton"
@@ -47,7 +47,34 @@
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.546" />
+
+    <TextView
+        android:id="@+id/commentInfoText"
+        android:layout_width="345dp"
+        android:layout_height="25dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="353dp"
+        android:layout_height="91dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/commentText"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:hint="Yorum girin..." />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
         android:id="@+id/ratingFrame"
@@ -100,22 +127,6 @@
         </RadioGroup>
     </FrameLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="353dp"
-        android:layout_height="91dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/commentText"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:hint="Yorum girin..." />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
@@ -144,14 +155,17 @@
         app:srcCompat="@drawable/close_x" />
 
     <TextView
-        android:id="@+id/commentInfoText"
-        android:layout_width="345dp"
-        android:layout_height="25dp"
-        android:gravity="center"
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yapılan yorumlar silinemez."
+        android:textColor="#6D6D6D"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.352" />
+        app:layout_constraintVertical_bias="0.977" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
