@@ -162,6 +162,24 @@ public class AccountDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataReceived(Account data) {
                 DeleteAccountFavorites();
+                DeleteAccountCarts();
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+
+                }
+
+
+                FileHelper.deleteFile(AccountDetailsActivity.this, "isAuth");
+                FileHelper.writeToFile(AccountDetailsActivity.this, "isAuth", "false");
+                FileHelper.deleteFile(AccountDetailsActivity.this, "account");
+
+                binding.deletionWarningText.setTextColor(Color.green(1));
+                binding.deletionWarningText.setText("Hesabınız silindi...");
+
+                Intent intent = new Intent(AccountDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
             @Override
             public void onError(Exception e) {
@@ -178,7 +196,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         favoritesFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<Favorites>() {
             @Override
             public void onDataReceived(Favorites data) {
-                DeleteAccountCarts();
+
             }
             @Override
             public void onError(Exception e) {
@@ -193,15 +211,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         shoppingCartFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<ShoppingCart>() {
             @Override
             public void onDataReceived(ShoppingCart data) {
-                FileHelper.deleteFile(AccountDetailsActivity.this, "isAuth");
-                FileHelper.writeToFile(AccountDetailsActivity.this, "isAuth", "false");
-                FileHelper.deleteFile(AccountDetailsActivity.this, "account");
 
-                binding.deletionWarningText.setTextColor(Color.green(1));
-                binding.deletionWarningText.setText("Hesabınız silindi...");
-
-                Intent intent = new Intent(AccountDetailsActivity.this, MainActivity.class);
-                startActivity(intent);
             }
             @Override
             public void onError(Exception e) {
