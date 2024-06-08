@@ -39,10 +39,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/buttonLayout"
         android:layout_width="108dp"
         android:layout_height="79dp"
-        android:gravity="center_vertical"
         android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <Button

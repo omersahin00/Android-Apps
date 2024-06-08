@@ -1,5 +1,6 @@
 package com.example.shopapp.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shopapp.Activities.FavoritesActivity;
+import com.example.shopapp.Activities.ProductDetailsActivity;
 import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
 import com.example.shopapp.Models.Favorites;
 import com.example.shopapp.Models.Product;
@@ -42,12 +44,10 @@ public class FavoriteCardAdapter extends ArrayAdapter<Product> {
         ImageView productImage = convertView.findViewById(R.id.productImage);
         Button removeFavoriteButton = convertView.findViewById(R.id.removeFavoriteButton);
 
-
         productName.setText(product.getName());
         productDescription.setText(product.getBrandName());
         productPrice.setText(String.valueOf(product.getPrice() + " TL"));
         productImage.setImageResource(product.getImageResource());
-
 
         removeFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +61,15 @@ public class FavoriteCardAdapter extends ArrayAdapter<Product> {
                     }
                 }
                 notifyDataSetChanged();
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(favoritesActivity, ProductDetailsActivity.class);
+                intent.putExtra("productIndex", product.getIndex());
+                favoritesActivity.startActivity(intent);
             }
         });
 

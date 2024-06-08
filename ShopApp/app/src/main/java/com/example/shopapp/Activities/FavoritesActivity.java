@@ -51,7 +51,6 @@ public class FavoritesActivity extends AppCompatActivity {
 
         favoriteCardAdapter = new FavoriteCardAdapter(this, favoritesList, userName);
         binding.listView.setAdapter(favoriteCardAdapter);;
-
         binding.closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

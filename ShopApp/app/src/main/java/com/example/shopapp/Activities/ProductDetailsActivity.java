@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
     String userName;
     boolean onCart = false;
     private int productBrandImage;
+    private ShoppingCartActivity shoppingCartActivity;
+
+
+    public void setShoppingCartActivity(ShoppingCartActivity shoppingCartActivity) {
+        this.shoppingCartActivity = shoppingCartActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,9 +171,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
                 if (onCart) {
                     if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
-                        shoppingCartFirebaseDatabaseHelper.removeData(userName + "_" + product.getIndex(), "primaryKey");
-                        onCart = false;
-                        binding.addCartButton.setText("Sepete Ekle");
+                        binding.addCartButton.setText("Sepetten Siliniyor");
+
+                        shoppingCartFirebaseDatabaseHelper.removeDataWithListener(new FirebaseDatabaseHelper.DataListener<ShoppingCart>() {
+                            @Override
+                            public void onDataReceived(ShoppingCart data) {
+                                onCart = false;
+                                binding.addCartButton.setText("Sepete Ekle");
+
+                                if (shoppingCartActivity != null) {
+                                    Toast.makeText(shoppingCartActivity, "Buraya girdi", Toast.LENGTH_SHORT).show();
+                                    shoppingCartActivity.SetCartList();
+                                }
+                            }
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e(TAG, "onError: ", e);
+                            }
+                        }, userName + "_" + product.getIndex(), "primaryKey");
                     }
                     else {
                         onCart = false;
@@ -175,9 +197,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
                 else {
                     if (FileHelper.readFromFile(ProductDetailsActivity.this, "isAuth").contains("true")) {
-                        shoppingCartFirebaseDatabaseHelper.addData(new ShoppingCart(userName, product.getIndex()));
-                        onCart = true;
-                        binding.addCartButton.setText("Sepete Eklendi");
+                        binding.addCartButton.setText("Sepete Ekleniyor");
+
+                        shoppingCartFirebaseDatabaseHelper.addDataWithListener(new FirebaseDatabaseHelper.DataListener<Void>() {
+                            @Override
+                            public void onDataReceived(Void data) {
+                                onCart = true;
+                                binding.addCartButton.setText("Sepete Eklendi");
+
+                                if (shoppingCartActivity != null) {
+                                    Toast.makeText(shoppingCartActivity, "Buraya girdi", Toast.LENGTH_SHORT).show();
+                                    shoppingCartActivity.SetCartList();
+                                }
+                            }
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e(TAG, "onError: ", e);
+                            }
+                        }, new ShoppingCart(userName, product.getIndex()));
                     }
                     else {
                         onCart = false;

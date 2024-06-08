@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Mavi" />
+            android:text="Yklnyr..." />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

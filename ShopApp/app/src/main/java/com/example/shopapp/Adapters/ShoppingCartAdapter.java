@@ -1,13 +1,17 @@
 package com.example.shopapp.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.shopapp.Activities.ProductDetailsActivity;
 import com.example.shopapp.Activities.ShoppingCartActivity;
 import com.example.shopapp.Helpers.FirebaseDatabaseHelper;
 import com.example.shopapp.Models.Product;
@@ -22,7 +26,6 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
     private List<Product> products;
     private List<Integer> productsCount;
     private String userName;
-
 
     public ShoppingCartAdapter(ShoppingCartActivity shoppingCartActivity, List<Product> products, String userName) {
         super(shoppingCartActivity, 0, products);
@@ -47,6 +50,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
         Button decreaseQuantity = convertView.findViewById(R.id.decreaseButton);
         Button increaseQuantity = convertView.findViewById(R.id.increaseButton);
         TextView productQuantity = convertView.findViewById(R.id.productQuantity);
+        LinearLayout buttonLayout = convertView.findViewById(R.id.buttonLayout); // horizontal LinearLayout için id ekledik
 
         productName.setText(product.getName());
         productDescription.setText(product.getBrandName());
@@ -67,8 +71,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
                     shoppingCartActivity.addedPrice -= products.get(position).getPrice();
                     shoppingCartActivity.SetPriceLayouts();
                     productQuantity.setText(String.valueOf(quantity));
-                }
-                else {
+                } else {
                     FirebaseDatabaseHelper<ShoppingCart> shoppingCartFirebaseDatabaseHelper = new FirebaseDatabaseHelper<>(ShoppingCart.class, "shoppingCarts");
 
                     String primaryKey = userName + "_" + products.get(position).getIndex();
@@ -101,6 +104,25 @@ public class ShoppingCartAdapter extends ArrayAdapter<Product> {
                 productsCount.set(position, productsCount.get(position) + 1);
                 shoppingCartActivity.addedPrice += products.get(position).getPrice();
                 shoppingCartActivity.SetPriceLayouts();
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductDetailsActivity productDetailsActivity = new ProductDetailsActivity();
+                productDetailsActivity.setShoppingCartActivity(shoppingCartActivity);
+
+                Intent intent = new Intent(shoppingCartActivity, productDetailsActivity.getClass());
+                intent.putExtra("productIndex", product.getIndex());
+                shoppingCartActivity.startActivity(intent);
+            }
+        });
+
+        buttonLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Boş bırakıyoruz ki tıklamayı engellesin
             }
         });
 
